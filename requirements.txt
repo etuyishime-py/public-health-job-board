@@ -1,5 +1,5 @@
-fastapi
-uvicorn
-requests
-beautifulsoup4flask
 flask
+requests
+beautifulsoup4
+apscheduler
+gunicorn
