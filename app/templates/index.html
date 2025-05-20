@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Search Platform</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+</head>
+<body>
+    <h2>Search Public Health Jobs</h2>
+    <form method="get">
+        <input type="text" name="keyword" placeholder="Keyword" value="{{ keyword }}">
+        <input type="text" name="location" placeholder="Location" value="{{ location }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <table id="jobTable">
+        <thead>
+            <tr>
+                <th>Title</th><th>Company</th><th>Location</th><th>Salary</th><th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{% for job in jobs %}}
+            <tr>
+                <td>{{ job[0] }}</td>
+                <td>{{ job[1] }}</td>
+                <td>{{ job[2] }}</td>
+                <td>{{ job[3] }}</td>
+                <td><a href="{{ job[4] }}" target="_blank">View</a></td>
+            </tr>
+            {{% endfor %}}
+        </tbody>
+    </table>
+
+    <h3>Leave a Comment</h3>
+    <form method="post" action="/comment">
+        <input name="name" placeholder="Your Name" required><br>
+        <textarea name="message" placeholder="Your Comment" required></textarea><br>
+        <button type="submit">Post Comment</button>
+    </form>
+
+    <ul>
+        {{% for c in comments %}}
+        <li><strong>{{ c[1] }}</strong>: {{ c[2] }} <em>on {{ c[3] }}</em></li>
+        {{% endfor %}}
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#jobTable').DataTable();
+        });
+    </script>
+</body>
+</html>
